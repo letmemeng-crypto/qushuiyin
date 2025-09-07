@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 设置下载按钮
     function setupDownloadButtons(content) {
-        // 下载封面
+ git init        // 下载封面
         downloadCover.onclick = function(event) {
             if (content.cover) {
                 downloadResource(content.cover, `封面_${generateFileName(content.title)}.jpg`, event);
