@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频去水印下载工具</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="password-container" id="password-container">
+            <h2>请输入访问密码</h2>
+            <div class="input-group">
+                <input type="password" id="password-input" placeholder="请输入密码">
+                <button id="password-submit">确认</button>
+            </div>
+            <p id="password-error" class="error-message"></p>
+        </div>
+
+        <div class="main-container" id="main-container" style="display: none;">
+            <h1>视频去水印下载工具</h1>
+            <div class="input-group">
+                <input type="text" id="video-url" placeholder="请粘贴分享链接...">
+                <button id="parse-btn">开始解析</button>
+            </div>
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>正在解析中，请稍候...</p>
+            </div>
+            <div id="result" class="result" style="display: none;">
+                <div class="result-item">
+                    <h3>视频标题</h3>
+                    <p id="video-title"></p>
+                </div>
+                <div class="result-item">
+                    <h3>视频封面</h3>
+                    <div class="cover-container">
+                        <img id="video-cover" src="" alt="视频封面">
+                        <button id="download-cover" class="download-btn">下载封面</button>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <h3>视频预览</h3>
+                    <div class="video-container">
+                        <video id="video-player" controls>
+                            <source id="video-source" src="" type="video/mp4">
+                            您的浏览器不支持视频播放
+                        </video>
+                        <button id="download-video" class="download-btn">下载视频</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
