@@ -121,51 +121,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // ================== 下载按钮功能 ==================
     function setupDownloadButtons(content) {
         // 下载封面
-        downloadCover.onclick = function(event) {
+        downloadCover.onclick = function() {
             if (content.cover) {
-                downloadResource(content.cover, `封面_${generateFileName(content.title)}.jpg`, event);
+                downloadResource(content.cover, `封面_${generateFileName(content.title)}.jpg`);
             }
         };
         
         // 下载视频
-        downloadVideo.onclick = function(event) {
+        downloadVideo.onclick = function() {
             if (content.url) {
-                downloadResource(content.url, `视频_${generateFileName(content.title)}.mp4`, event);
+                downloadResource(content.url, `视频_${generateFileName(content.title)}.mp4`);
             }
         };
     }
     
-    // 下载资源函数
-    function downloadResource(url, filename, event) {
-        const button = event.target;
-        const originalText = button.textContent;
-        button.textContent = '下载中...';
-        button.disabled = true;
-        
-        fetch(url)
-            .then(response => response.blob())
-            .then(blob => {
-                const blobUrl = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = blobUrl;
-                a.download = filename;
-                a.style.display = 'none';
-                document.body.appendChild(a);
-                a.click();
-                
-                setTimeout(() => {
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(blobUrl);
-                    button.textContent = originalText;
-                    button.disabled = false;
-                }, 100);
-            })
-            .catch(error => {
-                console.error('下载失败:', error);
-                alert('下载失败，请重试');
-                button.textContent = originalText;
-                button.disabled = false;
-            });
+    // 直接 <a> 下载资源（避免 fetch 0 字节问题）
+    function downloadResource(url, filename) {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename.endsWith(".mp4") ? filename : (filename + ".mp4");
+        a.target = "_blank";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     }
     
     // ================== 工具函数 ==================
